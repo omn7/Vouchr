@@ -1,4 +1,4 @@
-# 🧾 GenVouchr — Expense Voucher Management System
+# 🧾 Vouchr — Expense Voucher Management System
 
 > A full-stack, role-based expense compliance platform built with Next.js, PostgreSQL (Neon), and Prisma ORM. Employees file reimbursement claims with digital signatures, directors review and authorize, and accounts teams audit the complete financial ledger.
 

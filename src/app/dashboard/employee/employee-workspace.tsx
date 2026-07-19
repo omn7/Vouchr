@@ -1056,7 +1056,7 @@ export function EmployeeWorkspace({ initialVouchers, user }: EmployeeWorkspacePr
                   <div className="bg-slate-50/50 p-4 border border-slate-200/60 rounded-xl">
                     <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Employee Signature</p>
                     {detailVoucher.employeeSignature ? (
-                      detailVoucher.employeeSignature.startsWith("/uploads/") ? (
+                      (detailVoucher.employeeSignature.startsWith("/uploads/") || detailVoucher.employeeSignature.startsWith("/api/files/")) ? (
                         <div className="mt-2 h-10 flex items-center justify-start">
                           <img src={detailVoucher.employeeSignature} alt="Employee Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
                         </div>
@@ -1068,21 +1068,21 @@ export function EmployeeWorkspace({ initialVouchers, user }: EmployeeWorkspacePr
                     ) : (
                       <p className="text-xs text-slate-400 mt-2 italic">Unsigned</p>
                     )}
-                  </div>
+                    </div>
  
-                  <div className="bg-slate-50/50 p-4 border border-slate-200/60 rounded-xl">
-                    <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Director Approval</p>
-                    {detailVoucher.status === "APPROVED" && detailVoucher.directorSignature ? (
-                      <div>
-                        {detailVoucher.directorSignature.startsWith("/uploads/") ? (
-                          <div className="mt-2 h-10 flex items-center justify-start">
-                            <img src={detailVoucher.directorSignature} alt="Director Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
-                          </div>
-                        ) : (
-                          <p className="font-serif italic text-sm text-slate-800 mt-2 tracking-wide font-medium">
-                            {detailVoucher.directorSignature}
-                          </p>
-                        )}
+                    <div className="bg-slate-50/50 p-4 border border-slate-200/60 rounded-xl">
+                      <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Director Approval</p>
+                      {detailVoucher.status === "APPROVED" && detailVoucher.directorSignature ? (
+                        <div>
+                          {(detailVoucher.directorSignature.startsWith("/uploads/") || detailVoucher.directorSignature.startsWith("/api/files/")) ? (
+                            <div className="mt-2 h-10 flex items-center justify-start">
+                              <img src={detailVoucher.directorSignature} alt="Director Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
+                            </div>
+                          ) : (
+                            <p className="font-serif italic text-sm text-slate-800 mt-2 tracking-wide font-medium">
+                              {detailVoucher.directorSignature}
+                            </p>
+                          )}
                         <span className="text-[9px] text-slate-400 block mt-1">
                           {detailVoucher.approvalDate ? new Date(detailVoucher.approvalDate).toLocaleDateString() : ""}
                         </span>

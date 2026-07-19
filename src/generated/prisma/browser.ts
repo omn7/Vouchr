@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Voucher = Prisma.VoucherModel
+/**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel

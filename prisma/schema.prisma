@@ -49,3 +49,11 @@ model Voucher {
   employee          User      @relation(fields: [employeeId], references: [id])
   createdAt         DateTime  @default(now())
 }
+
+model Attachment {
+  id        String   @id @default(uuid())
+  name      String
+  type      String
+  data      Bytes
+  createdAt DateTime @default(now())
+}

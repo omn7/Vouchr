@@ -10,4 +10,5 @@
  */
 export type * from './models/User'
 export type * from './models/Voucher'
+export type * from './models/Attachment'
 export type * from './commonInputTypes'

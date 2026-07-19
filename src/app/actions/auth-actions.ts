@@ -128,7 +128,7 @@ export async function saveSignatureAction(url: string) {
     return { error: "Unauthorized." };
   }
 
-  if (!url || !url.startsWith("/uploads/")) {
+  if (!url || (!url.startsWith("/uploads/") && !url.startsWith("/api/files/"))) {
     return { error: "Invalid signature file path." };
   }
 

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-import crypto from "crypto";
+import { prisma } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,26 +22,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Only JPG, PNG, and PDF files are allowed" }, { status: 400 });
     }
 
-    // Create unique filename
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
     const originalName = file.name;
     const ext = originalName.split(".").pop();
-    const uniqueFilename = `${crypto.randomUUID()}.${ext}`;
 
-    // Target directory: public/uploads
-    const uploadDir = join(process.cwd(), "public", "uploads");
-    
-    // Ensure the directory exists
-    await mkdir(uploadDir, { recursive: true });
+    // Create database entry for attachment
+    const attachment = await prisma.attachment.create({
+      data: {
+        name: originalName,
+        type: file.type,
+        data: buffer,
+      },
+    });
 
-    // Save file
-    const filePath = join(uploadDir, uniqueFilename);
-    await writeFile(filePath, buffer);
-
-    // Return the relative URL
-    const relativeUrl = `/uploads/${uniqueFilename}`;
+    // Return the relative URL (appending extension so frontend can parse extension correctly)
+    const relativeUrl = `/api/files/${attachment.id}.${ext}`;
     return NextResponse.json({ success: true, url: relativeUrl });
   } catch (error: any) {
     console.error("Upload error:", error);

@@ -555,7 +555,7 @@ export function DirectorWorkspace({ initialPending, initialHistory, user }: Dire
                           {voucher.status === "APPROVED" ? (
                             <span className="flex items-center">
                               <Check className="h-3 w-3 text-emerald-500 mr-1" />
-                              {voucher.directorSignature?.startsWith("/uploads/") ? (
+                              {(voucher.directorSignature?.startsWith("/uploads/") || voucher.directorSignature?.startsWith("/api/files/")) ? (
                                 "Signed off (Image)"
                               ) : (
                                 `Signed by ${voucher.directorSignature}`
@@ -659,7 +659,7 @@ export function DirectorWorkspace({ initialPending, initialHistory, user }: Dire
               <div className="bg-slate-50/50 p-4 border border-slate-200/60 rounded-xl">
                 <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Employee Signature Verified</p>
                 {selectedVoucher.employeeSignature ? (
-                  selectedVoucher.employeeSignature.startsWith("/uploads/") ? (
+                  (selectedVoucher.employeeSignature.startsWith("/uploads/") || selectedVoucher.employeeSignature.startsWith("/api/files/")) ? (
                     <div className="mt-2 h-10 flex items-center justify-start">
                       <img src={selectedVoucher.employeeSignature} alt="Employee Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
                     </div>

@@ -675,7 +675,7 @@ export function AccountsWorkspace({ initialVouchers, user }: AccountsWorkspacePr
                   <div className="bg-slate-50/50 p-4 border border-slate-200/60 rounded-xl">
                     <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Employee Signature</p>
                     {selectedVoucher.employeeSignature ? (
-                      selectedVoucher.employeeSignature.startsWith("/uploads/") ? (
+                      (selectedVoucher.employeeSignature.startsWith("/uploads/") || selectedVoucher.employeeSignature.startsWith("/api/files/")) ? (
                         <div className="mt-2 h-10 flex items-center justify-start">
                           <img src={selectedVoucher.employeeSignature} alt="Employee Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
                         </div>
@@ -696,7 +696,7 @@ export function AccountsWorkspace({ initialVouchers, user }: AccountsWorkspacePr
                     <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Director Signature</p>
                     {selectedVoucher.directorSignature ? (
                       <div>
-                        {selectedVoucher.directorSignature.startsWith("/uploads/") ? (
+                        {(selectedVoucher.directorSignature.startsWith("/uploads/") || selectedVoucher.directorSignature.startsWith("/api/files/")) ? (
                           <div className="mt-2 h-10 flex items-center justify-start">
                             <img src={selectedVoucher.directorSignature} alt="Director Signature" className="max-h-full object-contain bg-white border border-slate-100 rounded p-0.5" />
                           </div>

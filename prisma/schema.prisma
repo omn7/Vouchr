@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  EMPLOYEE
+  DIRECTOR
+  ACCOUNTS
+}
+
+enum Status {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  password     String
+  role         Role      @default(EMPLOYEE)
+  signatureUrl String?
+  vouchers     Voucher[]
+}
+
+model Voucher {
+  id                String    @id @default(uuid())
+  voucherNumber     String    @unique
+  status            Status    @default(DRAFT)
+  department        String
+  expenseTitle      String
+  expenseCategory   String
+  expenseDate       DateTime
+  amount            Float
+  description       String?
+  employeeSignature String?
+  directorSignature String?
+  approvalDate      DateTime?
+  rejectionReason   String?
+  receiptUrl        String?
+  employeeId        String
+  employee          User      @relation(fields: [employeeId], references: [id])
+  createdAt         DateTime  @default(now())
+}

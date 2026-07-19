@@ -4,13 +4,12 @@ let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
   // Cloud environment (Vercel/Neon) -> Connect over Neon Serverless WebSockets
-  const { Pool, neonConfig } = require("@neondatabase/serverless");
+  const { neonConfig } = require("@neondatabase/serverless");
   const { PrismaNeon } = require("@prisma/adapter-neon");
   const ws = require("ws");
 
   neonConfig.webSocketConstructor = ws;
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-  const adapter = new PrismaNeon(pool);
+  const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL });
   prisma = new PrismaClient({ adapter });
 
 } else {
